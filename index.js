@@ -1,6 +1,8 @@
 const { App } = require('@slack/bolt');
 const mongoose = require("mongoose");
 const User = require("./userModel");
+const saludos = require("./saludos.json");
+const bdias = require("./dbias.json");
 
 require('dotenv').config()
 
@@ -39,10 +41,6 @@ app.event('app_mention', async ({ event, say }) => {
 });
 
 app.message('++', async ({ message, say }) => {
-  const saludos = ["Excelente","Excelso", "Maravilloro", "Supremo", "Fantástico", "Soberbio", "Muy bien", "Felicidades",
-   "Muy buen trabajo", "Lo haces de maravilla", "Woow", "You are on fire", "Es neta?", "Alv", "No macayu", "A la bestia", "Orale!",
-    "Ostia tio!", "Lo esta haciendo muy bien", "Naaaa te creo", "You got it!", "¡Felicidades!", "Encantador", "Exquisito", "Bien jugado", "Bravo :clap:"]
-
     let text =  message.text.split(" ");
     let textClean = text[0].replace("<", '')
     textClean =  textClean.replace(">", '')
@@ -52,12 +50,8 @@ app.message('++', async ({ message, say }) => {
     if(!user){
       const newUser = new User({slackId:slackId, puntos: 1})
       await newUser.save();
-      console.log("usuario guardado")
-      //console.log(user)
     }else{
       await User.findByIdAndUpdate(user.id,{ puntos: user.puntos+1})
-      //console.log(user)
-      console.log("usuario actualizado")
     }
 
     const userUpdated = await User.findOne({slackId:slackId})
@@ -67,14 +61,8 @@ app.message('++', async ({ message, say }) => {
 });
 
 app.message(/^(hi|hello|hey|hola|holi|gm|buenos|dias|días|buenas|morning).*/i, async ({ message, say }) => {
-    // RegExp matches are inside of context.matches
-    const saludos = ["Muy buenos días!", "Orale madrugaste :sunny:",
-    "Aun no es hora o si?", "Creo que me quede dormido", "No manches ya es bien tarde",
-    "Que horas son estas... :clock9:", "GM!", "lo bueno es que ya casi es viernes xD",
-    "Serán buenos despues de un café", "Huy si el madrugador :yawning_face:", "Si bueno quien tiene hambre",
-    "Creo que volvere a dormir :sleeping:", "Ufff que madrugador", "Ya estuvo?", ]
-    var saludo = saludos[Math.floor(Math.random()*saludos.length)];
-    await say(`${saludo} <@${message.user}>`);
+    var bdia = bdias[Math.floor(Math.random()*bdias.length)];
+    await say(`${bdia} <@${message.user}>`);
   });
 
 (async () => {
