@@ -2,11 +2,10 @@
   "name": "plusplus",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "prod": "node index.js",
-    "build": "pm2-runtime start ecosystem.config.js --env production"
+    "dev": "nodemon app/index.js",
+    "prod": "node app/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +14,10 @@
     "@slack/bolt": "^3.11.0",
     "dot": "^1.1.3",
     "dotenv": "^16.0.0",
-    "mongoose": "^6.3.2",
-    "nodemon": "^2.0.16",
-    "pm2": "^5.2.0"
+    "mongoose": "^6.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.6.2",
+    "nodemon": "^2.0.16"
   }
 }

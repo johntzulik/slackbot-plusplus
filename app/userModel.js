@@ -3,8 +3,8 @@ let Schema = mongoose.Schema;
 
 let UserSchema = new Schema(
   {
-    slackId:{type:String, require:true},
-    puntos:{type:Number,required:true}
+    slackId: { type: String, require: true },
+    puntos: { type: Number, required: true },
   },
   { timestamps: true }
 );
